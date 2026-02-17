@@ -30,19 +30,30 @@ docker compose up -d nginx
 docker compose run --rm satis
 ```
 
-## Использование в composer.json
+## Использование в проектах composer.json
 
 ```json
 {
-  "repositories": [
-    { "type": "composer", "url": "http://localhost:*.env.PORT*" }
-  ],
+  "name": "mycompany/myproject",
+  "config": {
+    "secure-http": false // если нет https
+  },
   "require": {
-    "example/my-private-package": "^1.0"
-  }
+    "monolog/monolog": "3.0",
+    "phpstan/phpstan": "2.0"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://localhost:8089" // *
+    },
+    {
+      "packagist.org": false // чтобы не тянуть зависимости из packagist.org
+    }
+  ]
 }
 ```
-### url необходимо указать такой же как и в параметре "homepage" в satis.json
+####  * url необходимо указать такой же как и в параметре "homepage" в satis.json
 ```json
 "homepage": "http://localhost:*.env.PORT*",
 ```
