@@ -1,0 +1,33 @@
+services:
+  satis:
+    image: composer/satis:latest
+    platform: linux/amd64
+    container_name: satis_builder
+    volumes:
+      - ./satis.json:/build/satis.json:ro
+      - ./web:/build/web
+    command: ["build", "/build/satis.json", "/build/web", "--no-interaction"]
+    # Для приватных репозиториев через SSH:
+    # volumes:
+    #   - ~/.ssh:/root/.ssh:ro
+    restart: "no"
+    env_file:
+      - .env
+    networks:
+      - satis_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: satis_nginx
+    ports:
+      - "${SATIS_PORT}:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./web:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    networks:
+      - satis_net
+
+networks:
+  satis_net:
+    driver: bridge

@@ -1,0 +1,25 @@
+{
+  "name": "my/satis-registry",
+  "description": "Private Composer Package Registry",
+  "homepage": "http://localhost:8089",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    }
+  ],
+  "require-all": false,
+  "require": {
+    "symfony/console": "6.0",
+    "guzzlehttp/guzzle": "7.0",
+    "monolog/monolog": "3.0",
+    "phpstan/phpstan": "1.0"
+  },
+  "require-dependencies": true,
+  "archive": {
+    "directory": "dist",
+    "format": "zip",
+    "skip-dev": false
+  },
+  "output-html": true
+}

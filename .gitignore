@@ -1,0 +1,10 @@
+# Сгенерированные Satis файлы
+web/
+satis-data/
+
+# Docker
+.env
+
+# OS
+.DS_Store
+Thumbs.db
